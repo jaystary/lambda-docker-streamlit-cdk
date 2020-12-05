@@ -16,7 +16,7 @@ To disable Streamlit, just comment the code in /lambda_docker/lambda_docker_stac
 
 ## CDK
 
-[AWS CDK (Cloud Development Kit)](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html lets you define cloud infrastructre as code. This project uses Python.
+[AWS CDK - Cloud Development Kit](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html lets you define cloud infrastructre as code. This project uses Python.
 
 In order to use this repo, an AWS Account is required, [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) installed and configured as well as [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html) installed.
 
