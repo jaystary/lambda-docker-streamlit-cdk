@@ -1,6 +1,6 @@
 # AWS Lambda Container Implementation (+ EFS / Streamlit) through CDK
 
-![architecture](img/archhitecture.png?raw=true)
+![architecture](/img/archhitecture.png?raw=true)
 [AWS Lambda – Container Image Support](https://aws.amazon.com/blogs/aws/new-for-aws-lambda-container-image-support/)
 
 This repo creates a CDK Stack that includes:
@@ -83,13 +83,13 @@ If an update is required and the stack is live, it is possible to update the run
 ```
 $ cdk deploy stack_name
 ```
-![Deployment](img/cdk_deploy.png?raw=true)
+![Deployment](/img/cdk_deploy.png?raw=true)
 
 Once this process is completed, it will display two seperate URLs. These URLs change with every new redeploy.
 - Streamlit Access URL  
 - API URL (externally accessible)  
 
-![Deployed](img/cdk_deployed.png?raw=true)
+![Deployed](/img/cdk_deployed.png?raw=true)
 
 ### !!!Destroying the stack!!!
 After being done with the stack, it needs to be destroyed otherwise it keeps incurring costs.
