@@ -1,0 +1,4 @@
+#transformers
+#torch
+#joblib===0.17.0
+onnx==1.5.0
