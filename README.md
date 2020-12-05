@@ -1,5 +1,5 @@
 # AWS Lambda Container Implementation (+ EFS / Streamlit) through CDK
-![architecture](https://raw.githubusercontent.com/jaystary/lambda-docker-streamlit-cdk/main/img/archhitecture.png)
+![architecture](https://user-images.githubusercontent.com/34389140/101266377-9b745000-374e-11eb-8efa-c37fec3b0caf.png)
 [AWS Lambda – Container Image Support](https://aws.amazon.com/blogs/aws/new-for-aws-lambda-container-image-support/)
 
 This repo creates a CDK Stack that includes:
@@ -83,13 +83,13 @@ If an update is required and the stack is live, it is possible to update the run
 $ cdk deploy stack_name
 ```
 
-![Deployment](https://raw.githubusercontent.com/jaystary/lambda-docker-streamlit-cdk/main/img/cdk_deploy.png)
+![Deployment](https://user-images.githubusercontent.com/34389140/101266376-9b745000-374e-11eb-8d39-361919fe1c1c.png)
 
 Once this process is completed, it will display two seperate URLs. These URLs change with every new redeploy.
 - Streamlit Access URL  
 - API URL (externally accessible)  
 
-![Deployed](https://raw.githubusercontent.com/jaystary/lambda-docker-streamlit-cdk/main/img/cdk_deployed.png)
+![Deployed](https://user-images.githubusercontent.com/34389140/101266375-9adbb980-374e-11eb-8f51-bad454117ad3.png)
 
 ### !!!Destroying the stack!!!
 After being done with the stack, it needs to be destroyed otherwise it keeps incurring costs.
