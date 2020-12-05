@@ -4,15 +4,16 @@
 
 This repo creates a CDK Stack that includes:
 - a shared filesystem (EFS)  
-- a Streamlit UI deployed onto a Fargate Service accessible through an Application Load Balancer  
-- a Lambda bound to an API Gateway and EFS  
+- a Lambda bound to an API Gateway and EFS 
+- a Streamlit UI deployed onto a Fargate Service accessible through an Application Load Balancer (Optional)
+ 
+**A usecase for this construct is CPU bound scalable ML model inference.**
 
-A usecase for this construct is CPU bound scalable ML model inference. 
+Currently there is no logic implemented aside from some dummy code to demonstrate some functionality.
 
-It currently impelements no actual code logic and be used as a blueprint.
+Streamlit is an optional (and commented) and could be replaced by any application / webserver
 
-Streamlit it an optional component and could be replaced by any application / webserver or left out completly.
-To disable Streamlit, just comment the code in /lambda_docker/lambda_docker_stack.py that indicates Streamlit.
+To use Streamlit, uncomment the code in /lambda_docker/lambda_docker_stack.py that indicates Streamlit.
 
 ## CDK
 
@@ -30,13 +31,13 @@ In theory, AWS CDK is very straightforward to use:
 - **cdk ls** (Lists all the stacks/infrastructure in an app)
 - **cdk synth** (Synthesizes and prints Cloudformation template)
 
-Under the hood, CDK translates stacks into Cloudformation templates, and these cloudformation templates get deployed.
+Under the hood, CDK translates stacks into Cloudformation templates, and these cloudformation templates get deployed into AWS.
 
 Sometimes AWS CDK can get stuck during deploy/delete phases, and in order to clean an AWS Account from fragments its important to understand how to clean up resources manually.
 
 A best practice is to deploy/develop into a sandbox account initally for testing.
 
-Different stacks can cause different issues. In this case, it might happen that the ECS Cluster gets stuck and cannot be deleted.
+Different stacks can cause different issues. In this case, it might happen that the ECS Cluster gets stuck and cannot be deleted (currently WiP).
 
 Should this be the case, look up ECS, select the relevant cluster, select tasks, stop all running tasks and delete the cluster manually. Should there be already a job pending, it might then become unstuck and continue. Alternatively, it is possible to destroy the stack again. In this specific case, it is probably related to Streamlit not correctly allowing to shut down.
 
@@ -85,13 +86,27 @@ $ cdk deploy stack_name
 
 ![Deployment](https://user-images.githubusercontent.com/34389140/101266376-9b745000-374e-11eb-8d39-361919fe1c1c.png)
 
-Once this process is completed, it will display two seperate URLs. These URLs change with every new redeploy.
-- Streamlit Access URL  
-- API URL (externally accessible)  
+Once this process is completed, it will display the URLs in the console. These URLs change with every new redeploy.
 
 ![Deployed](https://user-images.githubusercontent.com/34389140/101266375-9adbb980-374e-11eb-8f51-bad454117ad3.png)
 
-### !!!Destroying the stack!!!
+### Post/Get Requests
+This will respond with a timestamped messages:
+```
+curl --location --request POST 'URL' \
+--header 'Content-Type: application/json' \
+--data-raw 'Hello World'
+```
+
+This will respond with all messages:
+```
+curl --location --request GET 'URL' \
+--data-raw ''
+```
+
+Data gets persisted to EFS
+
+### Destroying the stack
 After being done with the stack, it needs to be destroyed otherwise it keeps incurring costs.
 
 ```

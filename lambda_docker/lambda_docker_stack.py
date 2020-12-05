@@ -47,6 +47,7 @@ class LambdaDockerStack(core.Stack):
         """"""""""""""""""""""""""""""""""""""""""""""""""""""
         #STREAMLIT RELATED START
         """"""""""""""""""""""""""""""""""""""""""""""""""""""
+        '''
         cluster = ecs.Cluster(self, f"{name}-Streamlit-Cluster", vpc=vpc)
         
         ecs_task = ecs.FargateTaskDefinition(
@@ -111,6 +112,7 @@ class LambdaDockerStack(core.Stack):
         
         fs.connections.allow_default_port_from(
             ecs_service.service.connections)
+        '''
         
         """"""""""""""""""""""""""""""""""""""""""""""""""""""
         #STREAMLIT RELATED END

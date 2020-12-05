@@ -1,14 +1,17 @@
 import streamlit as st
 import fcntl
 import os
+import requests
+import datetime
+  
 
 #Mount path
 path = '/mnt/data/msg'
 
-def add_message():
+def add_message(payload):
     with open(path, 'a') as file:
         fcntl.flock(file, fcntl.LOCK_EX)
-        file.write("test"+ "\n")
+        file.write(payload+ "\n")
         fcntl.flock(file, fcntl.LOCK_UN)
         
 def get_messages():
@@ -21,9 +24,25 @@ def get_messages():
         messages = 'No message yet.'
     return messages
 
+def post_api_request(payload):
+    #Exposed at stack creation
+    url = os.environ['API_URL']
+
+    headers = {
+    'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", url, headers=headers, data = payload)
+    st.write(response.text.encode('utf8'))
+    
+dt_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 st.title("Streamlit Container")
 #API Gateway URL that can use all Methods (Post/Get/Patch ...)
-st.write("API GW URL: " os.environ['API_URL'])
+
+st.write("API URL: " +os.environ['API_URL'])
+
+#API connection:
+post_api_request(f'{dt_str}: Hi from Streamlit')
 
 #Demonstrate EFS Mount
 add_message()        
