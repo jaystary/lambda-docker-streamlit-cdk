@@ -17,14 +17,14 @@ To use Streamlit, uncomment the code in /lambda_docker/lambda_docker_stack.py th
 
 ## CDK
 
-[AWS CDK - Cloud Development Kit](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html lets you define cloud infrastructre as code. This project uses Python.
+[AWS CDK ](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html allows to define infrastructre as code. This project uses Python as language.
 
 In order to use this repo, an AWS Account is required, [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) installed and configured as well as [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html) installed.
 
 **This repo will incur costs on an AWS Account**
 
 ### A short primer on AWS CDK
-In theory, AWS CDK is very straightforward to use:
+AWS CDK has few important commands:
 - **cdk deploy** (Deploys infrastructure)
 - **cdk destroy** (Destroy deployed infrastructure)
 - **cdk diff** (Similiar to a git diff shows differences between deployed and current stacks)
