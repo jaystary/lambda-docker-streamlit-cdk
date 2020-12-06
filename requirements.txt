@@ -8,4 +8,5 @@ aws-cdk.aws-ec2==1.76.0
 aws-cdk.aws-efs==1.76.0
 aws-cdk.aws-ecs==1.76.0
 aws-cdk.aws-ecs-patterns==1.76.0
+aws-cdk.aws-logs==1.76.0
 path==13.1.0

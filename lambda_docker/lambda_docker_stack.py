@@ -7,11 +7,14 @@ from aws_cdk import (
     aws_ecs as ecs,
     aws_ecs_patterns as ecs_patterns,
     aws_iam as iam,
+    aws_logs as logs,
     core
 )
+from aws_cdk.aws_logs import LogGroup, RetentionDays
 import os
 
 MOUNT_POINT = "/mnt/data"
+LOG_RETENTION = RetentionDays.ONE_MONTH
 
 """Infrastructure"""
 class LambdaDockerStack(core.Stack):   
@@ -27,22 +30,33 @@ class LambdaDockerStack(core.Stack):
                             removal_policy=core.RemovalPolicy.DESTROY)
 
         access_point = fs.add_access_point('AccessPoint',
-                                           create_acl=efs.Acl(owner_gid='1001', owner_uid='1001', permissions='750'),
-                                           path="/export/lambda",
-                                           posix_user=efs.PosixUser(gid="1001", uid="1001"))
+                    create_acl=efs.Acl(owner_gid='1001', owner_uid='1001', permissions='750'),
+                    path="/export/lambda",
+                    posix_user=efs.PosixUser(gid="1001", uid="1001"))
         
         """Model folder that contains Lambda code"""
         model_folder = os.path.dirname(os.path.realpath(__file__)) + "/../model"
         lambda_handler = _lambda.DockerImageFunction(self, f'{name}-Lambda',
-                                                        code=_lambda.DockerImageCode.from_image_asset(model_folder),
-                                                        memory_size=4096,
-                                                        timeout=core.Duration.minutes(5), 
-                                                        vpc=vpc,
-                                                        filesystem=_lambda.FileSystem.from_efs_access_point(access_point, MOUNT_POINT))
+                    code=_lambda.DockerImageCode.from_image_asset(model_folder), #Uses local code to build the container
+                    memory_size=1024, #Adjust to your need - 128MB to 10GB
+                    timeout=core.Duration.minutes(5), #Adjust to your need - up to 15 mins
+                    vpc=vpc,
+                    filesystem=_lambda.FileSystem.from_efs_access_point(access_point, MOUNT_POINT))
         
+ 
+        """Custom Log groups for Lambda"""
+        lambda_lgs = logs.LogGroup(
+            self,
+            f'{name}-Lambda-LogGroup',
+            log_group_name=f"/aws/lambda/{lambda_handler.function_name}",
+            retention=logs.RetentionDays.ONE_WEEK,
+            removal_policy=core.RemovalPolicy.DESTROY
+        )
+
         """API Gateway - integrates all methods and ressources - used for Lambda invocation"""
-        api = api_gw.HttpApi(self, f'{name}-ApiGw',
-                             default_integration=integrations.LambdaProxyIntegration(handler=lambda_handler));
+        api = api_gw.HttpApi(self, 
+                    f'{name}-ApiGw',
+                    default_integration=integrations.LambdaProxyIntegration(handler=lambda_handler))
         
         """"""""""""""""""""""""""""""""""""""""""""""""""""""
         #STREAMLIT RELATED START
