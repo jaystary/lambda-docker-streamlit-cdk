@@ -17,7 +17,7 @@ To use Streamlit, uncomment the code in /lambda_docker/lambda_docker_stack.py th
 
 ## CDK
 
-[AWS CDK ](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html allows to define infrastructre as code. This project uses Python as language.
+[AWS CDK ](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html) allows to define infrastructre as code. This project uses Python as language.
 
 In order to use this repo, an AWS Account is required, [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) installed and configured as well as [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html) installed.
 
