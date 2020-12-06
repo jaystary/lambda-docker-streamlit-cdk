@@ -45,7 +45,7 @@ Should this be the case, look up ECS, select the relevant cluster, select tasks,
 ## Structure
 This project contains 3 core components:
 - **lambda_docker** - contains the CDK code that deploys the infrastructure
-- **model** - contains the Lambda function including an example mount to EFS and how to read / write to it
+- **model** - custom container which the Lambda function utilizles. Additionally an example mount to EFS and how to read / write to it
 - **streamlit-docker** - contains a streamlit instance exposed by a application load balancer and connected to the API Gateway to access the Lambda + EFS mount
 
 
